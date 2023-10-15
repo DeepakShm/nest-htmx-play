@@ -1,0 +1,7 @@
+<section class="p-2">
+    <div> {{> components/TodoList todos=todos}}</div>
+    <form class="flex gap-2 my-3" hx-post="/todo" hx-target="#todo-list" hx-swap="beforeend" hx-on::after-request="this.reset()">
+        <input class="border border-gray-600 rounded px-2 py-1" type="text" name="todo" required autocomplete="off" />
+        <button type="submit" class="bg-green-700 px-4 py-1 text-white rounded">Add</button>
+    </form>
+</section>

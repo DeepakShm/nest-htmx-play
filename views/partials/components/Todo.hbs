@@ -1,0 +1,10 @@
+{{#with todo}}
+<div class="flex flex-row items-center gap-2 text-base">
+    <label class="flex gap-2 {{#if completed}}line-through{{/if}}" for={{id}}>
+        <span>{{id}}</span>
+        <p>{{content}}</p>
+    </label>
+    <input type="checkbox" hx-put="/todo/{{id}}" hx-trigger="change" hx-target="closest div" hx-swap="outterHTML" {{#if completed}}checked{{/if}}   id={{id}} />
+    <button type="button" hx-delete="/todo/{{id}}" hx-trigger="click" hx-target="closest div" hx-swap="delete" class="text-[12px]">❌</button>
+</div>
+{{/with}}

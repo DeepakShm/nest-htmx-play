@@ -1,0 +1,6 @@
+<h2 class="text-xl font-bold">Todo List</h2>
+<div class="flex flex-col gap-2" id="todo-list">
+    {{#each todos}}
+        {{> components/Todo todo=this}}
+    {{/each}}
+</div>
