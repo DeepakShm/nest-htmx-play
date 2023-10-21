@@ -13,6 +13,9 @@ import { Response } from 'express';
 
 @Controller()
 export class AppController {
+  getHello(): any {
+    throw new Error('Method not implemented.');
+  }
   counter = 4;
   todos = [
     { content: 'Create api', id: 1, completed: true },
@@ -23,36 +26,42 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  root(@Res() res: Response) {
-    return res.render('index', { todos: this.todos });
+  async root(@Res() res: Response) {
+    const tasks = await this.appService.getTodos();
+    return res.render('index', { todos: tasks, page_name: 'Home' });
+  }
+
+  @Get('about')
+  getAbout(@Res() res: Response) {
+    return res.render('about', {
+      page_name: 'About',
+      message:
+        'Name gives you access to AJAX, CSS Transitions, WebSockets and Server Sent Events directly in HTML, using attributes, so you can build modern user interfaces with the simplicity and power of hypertext',
+    });
   }
 
   @Put('todo/:id')
-  updateTodo(@Param('id') id: string, @Res() res: Response) {
-    const todoIdx: number = this.todos.findIndex((i) => i.id === +id);
-    this.todos[todoIdx].completed = !this.todos[todoIdx].completed;
-
+  async updateTodo(@Param('id') id: string, @Res() res: Response) {
+    const todo = await this.appService.updateTodo(+id);
     return res.render('partials/components/Todo', {
-      todo: this.todos[todoIdx],
+      todo,
       layout: false,
     });
   }
 
   @Delete('todo/:id')
-  deleteTodo(@Param('id') id: string) {
-    const todoIdx: number = this.todos.findIndex((i) => i.id === +id);
-    this.todos.splice(todoIdx, 1);
+  async deleteTodo(@Param('id') id: string) {
+    await this.appService.deleteTodo(+id);
     return null;
   }
 
   @Post('todo')
-  addTodo(@Body() data: { todo: string }, @Res() res: Response) {
-    const todo = {
-      completed: false,
-      content: data.todo,
-      id: ++this.counter,
-    };
-    this.todos.push(todo);
+  async addTodo(
+    @Body() data: { todo: string; blogBody: string },
+    @Res() res: Response,
+  ) {
+    console.log(data);
+    const todo = await this.appService.addTodo({ content: data.todo });
     return res.render('partials/components/Todo', {
       todo: todo,
       layout: false,

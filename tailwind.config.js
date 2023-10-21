@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 module.exports = {
-    purge: [],
+    content: ['./src/views/*.hbs', './src/views/**/*.hbs'],
     theme: {
         extend: {},
     },

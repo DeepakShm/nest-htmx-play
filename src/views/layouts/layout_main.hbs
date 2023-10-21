@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <script src="https://unpkg.com/hyperscript.org@0.9.11"></script>
+    <meta name="htmx-config" content='{"refreshOnHistoryMiss":"true"}' />
+    <link href="output.css" rel="stylesheet">
+    <title>{{page_name}}</title>
+    <style>
+        .htmx-indicator{
+            display:none;
+        }
+        .htmx-request .htmx-indicator{
+            display:block;
+        }
+        .htmx-request.htmx-indicator{
+            display:block;
+        }
+        .selected{
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="body">
+        <header>{{> header}}</header>
+        <main>{{{body}}}</main>
+        <footer>{{> footer}}</footer>
+        <img id="loading" src="loading.gif" alt="loading..." class="htmx-indicator">
+    </div>
+</body>
+
+</html>

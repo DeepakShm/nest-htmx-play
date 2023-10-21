@@ -1,0 +1,15 @@
+<header class="p-2">
+    <nav class="flex flex-row" >
+        <ul class="flex flex-row gap-2">
+            <li><a href="/"  hx-boost="true" {{#IfEquals page_name "Home"}}style="color: red;"{{/IfEquals}} hx-push-url="true" hx-target="#body" hx-swap="outerHTML transition:true" hx-indicator="#loading">Home</a></li>
+            <li><a onclick="prevent(event)" href="/about" hx-boost="true" {{#IfEquals page_name "About"}}style="color: red;" {{/IfEquals}} hx-push-url="true"  hx-target="#body" hx-swap="outerHTML transition:true" hx-indicator="#loading">About</a></li>
+        </ul>
+    </nav>
+</header>
+<script>
+    function prevent(event){
+        console.log(event);
+        event.preventDefault();
+        return false;
+    }
+</script>
